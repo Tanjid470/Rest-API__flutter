@@ -1,7 +1,12 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-  
+import 'dart:convert';
+import '../../controllers/auth_controller.dart';
+import '../../models/auth.dart';
+
 class firstPage extends StatefulWidget {
   const firstPage({super.key});
 
@@ -10,37 +15,27 @@ class firstPage extends StatefulWidget {
 }
 
 class _firstPageState extends State<firstPage> {
- late String stringResponse;
-  Future apicall() async { 
-    http.Response response;
-    response = await http.get(Uri.parse("https://reqres.in/api/users/2"));
-    if (response.statusCode == 200) {
-      setState(() {
-        stringResponse=response.body;
-      });
-    }
-  }
+  List<Data> persons = [];
 
   @override
-  void initState() {
-    apicall();
-    // TODO: implement initState
-    super.initState();
-  }
-  
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('APItest'),),
-      body: Center(
-        child: Container(
-          height: 200,
-          width: 300,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.blue,),
-          
-          child: Center(child: Text(stringResponse.toString(),style: TextStyle(color: Colors.black),)),
-        ),
-      ),
+    return Container(
+      child: Column(children: [
+        ElevatedButton(onPressed: (){
+            getData();
+        }, child: Text('press')),
+        
+      ]),
     );
   }
+
+  // getData() async {
+  //   final response =
+  //       await http.get(Uri.parse('https://reqres.in/api/users?page=2'));
+  //   final dataModel=dataFromJson(response.body);
+  //   print(dataModel.data[0].email);
+  //   //print(dataModel.data.map((e) => {}));
+  // }
+  
+
 }
