@@ -1,96 +1,34 @@
-// To parse this JSON data, do
-//
-//     final data = dataFromJson(jsonString);
 
 import 'dart:convert';
 
-Data dataFromJson(String str) => Data.fromJson(json.decode(str));
-String dataToJson(Data data) => json.encode(data.toJson());
+// List<Persons> personsFromJson(String str) => List<Persons>.from(json.decode(str).map((x) => Persons.fromJson(x)));
 
-class Data {
-    int page;
-    int perPage;
-    int total;
-    int totalPages;
-    List<Datum> data;
-    Support support;
+// String personsToJson(List<Persons> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-    Data({
-        required this.page,
-        required this.perPage,
-        required this.total,
-        required this.totalPages,
-        required this.data,
-        required this.support,
-    });
+class Persons {
+  int userId;
+  int id;
+  String title;
+  String body;
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
-        page: json["page"],
-        perPage: json["per_page"],
-        total: json["total"],
-        totalPages: json["total_pages"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        support: Support.fromJson(json["support"]),
-    );
+  Persons({
+    required this.userId,
+    required this.id,
+    required this.title,
+    required this.body,
+  });
 
-    Map<String, dynamic> toJson() => {
-        "page": page,
-        "per_page": perPage,
-        "total": total,
-        "total_pages": totalPages,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "support": support.toJson(),
-    };
-}
-
-class Datum {
-    int id;
-    String email;
-    String firstName;
-    String lastName;
-    String avatar;
-
-    Datum({
-        required this.id,
-        required this.email,
-        required this.firstName,
-        required this.lastName,
-        required this.avatar,
-    });
-
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Persons.fromJson(Map<String, dynamic> json) => Persons(
+        userId: json["userId"],
         id: json["id"],
-        email: json["email"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        avatar: json["avatar"],
-    );
+        title: json["title"],
+        body: json["body"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
+        "userId": userId,
         "id": id,
-        "email": email,
-        "first_name": firstName,
-        "last_name": lastName,
-        "avatar": avatar,
-    };
-}
-
-class Support {
-    String url;
-    String text;
-
-    Support({
-        required this.url,
-        required this.text,
-    });
-
-    factory Support.fromJson(Map<String, dynamic> json) => Support(
-        url: json["url"],
-        text: json["text"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "url": url,
-        "text": text,
-    };
+        "title": title,
+        "body": body,
+      };
 }

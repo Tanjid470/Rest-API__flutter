@@ -1,15 +1,20 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import '../models/auth.dart';
 
-  getData() async {
+class API {
+  List<Persons> personsDataList = [];
+  Future<List<Persons>> getData_FromApi() async {
     final response =
-        await http.get(Uri.parse('https://reqres.in/api/users?page=2'));
-    final dataModel=dataFromJson(response.body);
-    print(dataModel.data[0].email);
-    //print(dataModel.data.map((e) => {}));
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    var decodedDatalist = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
+      for (Map<String, dynamic> i in decodedDatalist) {
+        personsDataList.add(Persons.fromJson(i));
+      }
+      return personsDataList;
+    } else {
+      return personsDataList;
+    }
   }
+}
